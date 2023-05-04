@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jinja-deployment
+  labels:
+    app: jinja_app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jinja_app
+  template:
+    metadata:
+      labels:
+        app: jinja_app
+    spec:
+      containers:
+      - name: jinja
+        image: pyronaid/jinja_dashboard_app:0.0.2
+        ports:
+        - containerPort: 5001
+        env:
+          - name: BE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: jinja-config
+                key: BE_URL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jinja-service-ext
+spec:
+  type: NodePort
+  selector:
+    app: jinja_app
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+      nodePort: 30051

@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jinja-config
+data:
+  # property-like keys; each key maps to a simple value
+  BE_URL: springboot-service-ext
