@@ -17,18 +17,24 @@ def login():
     # handle this for us, and we use a custom LoginForm to validate.
     login_form = LoginForm(request.form)
     if login_form.validate_on_submit():
-        # Login and validate the user.
-        # user should be an instance of your `User` class
-        login_user(User)
-        flash('Logged in successfully.')
-        next = request.args.get('next')
-        # url_has_allowed_host_and_scheme should check if the url is safe
-        # for redirects, meaning it matches the request host.
-        # See Django's url_has_allowed_host_and_scheme for an example.
-        if not my_url_has_allowed_host_and_scheme(next, request.host):
-            return abort(400)
-        redirect(next or url_for('index'))
-    return render_template('accounts/auth-signin.html', segment='auth-signin', parent='accounts', form=login_form)
+        # read form data
+        username = request.form['username']
+        password = request.form['password']
+        # Locate user
+        user = "" ####CALL API TO GET USE PASSING CREDENTIALS
+        if user and verify_pass(password, user.password):
+            # Login and validate the user.
+            # user should be an instance of your `User` class
+            login_user(user)
+            flash('Logged in successfully.')
+            # url_has_allowed_host_and_scheme should check if the url is safe
+            # for redirects, meaning it matches the request host.
+            # See Django's url_has_allowed_host_and_scheme for an example.
+            next = request.args.get('next')
+            if not my_url_has_allowed_host_and_scheme(next, request.host):
+                return abort(400)
+            redirect(next or url_for('dashboard_blueprint.index'))
+    return render_template('accounts/auth-signin.html', segment='auth-signin', parent='accounts', form=login_form) ####PASSARE EVENTUALI ERRORI
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
