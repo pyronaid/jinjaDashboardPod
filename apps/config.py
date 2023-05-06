@@ -14,6 +14,7 @@ class Config(object):
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
     BE_URL = os.getenv('BE_URL')
+    BE_LOGIN_API_ADDRESS = os.getenv('BE_LOGIN_API_ADDRESS')
 
     # App Config - the minimal footprint
     SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_9999')

@@ -3,12 +3,16 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from flask   import render_template, request, redirect, flash, abort, url_for
+from flask import render_template, request, redirect, flash, abort, url_for
+from flask_login import login_user, login_required
+
 from apps.auth_module import blueprint
 from apps.auth_module.forms import LoginForm, CreateAccountForm
-from apps.auth_module.util import verify_pass, my_url_has_allowed_host_and_scheme
-from apps.auth_module.models import User
-from flask_login import login_user, login_required
+from apps.auth_module.util import verify_user, my_url_has_allowed_host_and_scheme, hash_pass
+import apps.auth_module.be_calls as be_calls
+from apps.auth_module.models import User, convertResponseToUser
+from apps.auth_module.objects.LoginDto import LoginResponseDto, LoginRequestDto
+
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -21,8 +25,9 @@ def login():
         username = request.form['username']
         password = request.form['password']
         # Locate user
-        user = "" ####CALL API TO GET USE PASSING CREDENTIALS
-        if user and verify_pass(password, user.password):
+        loginResponseDto: LoginResponseDto = be_calls.process_login(username, hash_pass(password))
+        user: User = convertResponseToUser(loginResponseDto)
+        if user and verify_user(password):
             # Login and validate the user.
             # user should be an instance of your `User` class
             login_user(user)

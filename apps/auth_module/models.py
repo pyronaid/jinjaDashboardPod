@@ -3,14 +3,18 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 import base64
+from datetime import datetime
 
 # Flask modules
 from apps import login_manager
 from flask_login import UserMixin
 from flask import redirect, request
+from apps.auth_module.objects.LoginDto import LoginResponseDto, LoginRequestDto
 
 class User (UserMixin):
-    pass
+    username: str
+    email: str
+    firstSubscriptionDate: datetime
 
 @login_manager.user_loader
 def user_loader(user_id):
@@ -44,3 +48,13 @@ def request_loader(request):
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     return redirect('/authentication/login?next=' + request.path)
+
+
+def convertResponseToUser(loginResponseDto: LoginResponseDto) -> User:
+    userConverted = User()
+    if loginResponseDto.userObj != None:
+        userConverted.email = loginResponseDto.userObj.email
+        userConverted.username = loginResponseDto.userObj.username
+        userConverted.firstSubscriptionDate = loginResponseDto.userObj.firstSubscriptionDate
+    else:
+        return None
