@@ -55,7 +55,9 @@
                             </div>
                             <div class="card-body px-5 py-3">
                                 <form role="form" method="post" action="">
+                                    {% if form %}
                                     {{ form.csrf_token }}
+                                    {% endif %}
                                     <div class="row">
                                         <small class="text-danger mb-3"></small>
                                         <div class="col-md-12 px-md-1">
@@ -64,6 +66,9 @@
                                                     Username :
                                                 </label>
                                                 {{ form.username(placeholder="Username", class="form-control") }}
+                                                {% if error_username %}
+                                                {{error_username}}
+                                                {% endif %}
                                             </div>
                                             <span class="form_error"></span>
                                             <div class="form-group">
@@ -71,6 +76,9 @@
                                                     Password :
                                                 </label>
                                                 {{ form.password(placeholder="Password", class="form-control", type="password") }}
+                                                {% if error_password %}
+                                                {{error_password}}
+                                                {% endif %}
                                             </div>
                                             <span class="form_error"></span>
                                         </div>

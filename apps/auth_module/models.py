@@ -52,7 +52,7 @@ def unauthorized_callback():
 
 def convertResponseToUser(loginResponseDto: LoginResponseDto) -> User:
     userConverted = User()
-    if loginResponseDto.userObj != None:
+    if loginResponseDto.userObj is not None:
         userConverted.email = loginResponseDto.userObj.email
         userConverted.username = loginResponseDto.userObj.username
         userConverted.firstSubscriptionDate = loginResponseDto.userObj.firstSubscriptionDate

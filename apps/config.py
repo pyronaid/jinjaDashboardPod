@@ -18,3 +18,8 @@ class Config(object):
 
     # App Config - the minimal footprint
     SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_9999')
+
+
+    ####For local test
+    #BE_URL = "http://localhost:7071"
+    #BE_LOGIN_API_ADDRESS = "/authentication/login"

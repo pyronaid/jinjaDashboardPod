@@ -10,12 +10,22 @@ from apps.auth_module.objects.LoginDto import LoginResponseDto, LoginRequestDto
 from apps.auth_module.objects.PyronaidEncoder import PyronaidEncoder
 
 
+def computeHeader():
+    hearder = {
+        'accept': 'application/json',
+        'content-Type' : 'application/json',
+        #'host': '104.154.118.39',
+        #'content-Length': length
+    }
+    return hearder
+
+
 def process_login(username_provided: str, password_hashed_provided: str) -> LoginResponseDto:
     loginResponseDto = LoginResponseDto()
     try:
         loginRequestDto = LoginRequestDto(username_provided, password_hashed_provided)
         processLoginApiResponse: Response = requests.post(Config.BE_URL + Config.BE_LOGIN_API_ADDRESS,
-                                                          json.dumps(loginRequestDto, cls=PyronaidEncoder))
+                                                          data=json.dumps(loginRequestDto, cls=PyronaidEncoder), headers=computeHeader())
 
         loginResponseDto.responseCode = processLoginApiResponse.status_code
         if processLoginApiResponse.status_code != 200:

@@ -15,17 +15,23 @@ from apps.auth_module.objects.LoginDto import LoginResponseDto, LoginRequestDto
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
-def login():
+@blueprint.route('/accounts/auth-signin/')
+def accounts_signin():
     # Here we use a class of some kind to represent and validate our
     # client-side form data. For example, WTForms is a library that will
     # handle this for us, and we use a custom LoginForm to validate.
     login_form = LoginForm(request.form)
+    error_username: str = None
+    error_password: str = None
     if login_form.validate_on_submit():
         # read form data
         username = request.form['username']
         password = request.form['password']
         # Locate user
         loginResponseDto: LoginResponseDto = be_calls.process_login(username, hash_pass(password))
+        if loginResponseDto is not None:
+            error_username = loginResponseDto.errorMsgUsername
+            error_password = loginResponseDto.errorMsgPassword
         user: User = convertResponseToUser(loginResponseDto)
         if user and verify_user(password):
             # Login and validate the user.
@@ -39,25 +45,17 @@ def login():
             if not my_url_has_allowed_host_and_scheme(next, request.host):
                 return abort(400)
             redirect(next or url_for('dashboard_blueprint.index'))
-    return render_template('accounts/auth-signin.html', segment='auth-signin', parent='accounts', form=login_form) ####PASSARE EVENTUALI ERRORI
+    return render_template('accounts/auth-signin.html', segment='signin', parent='accounts', form=login_form, error_username=error_username, error_password=error_password)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
-def register():
+@blueprint.route('/accounts/auth-signup/')
+def accounts_signup():
     create_account_form = CreateAccountForm(request.form)
-    return render_template('accounts/auth-signup.html', segment='auth-signup', parent='accounts', form=create_account_form)
+    return render_template('accounts/auth-signup.html', segment='signup', parent='accounts', form=create_account_form)
 
 
 # Accounts
-
-@blueprint.route('/accounts/auth-signin/')
-def accounts_signin():
-    return render_template('accounts/auth-signin.html', segment='signin', parent='accounts')
-
-@blueprint.route('/accounts/auth-signup/')
-def accounts_signup():
-    return render_template('accounts/auth-signup.html', segment='signup', parent='accounts')
-
 @blueprint.route('/accounts/forgot-password/')
 def accounts_forgot_password():
     return render_template('accounts/forgot-password.html', segment='forgot-password', parent='accounts')
