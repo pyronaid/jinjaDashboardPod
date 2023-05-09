@@ -15,11 +15,13 @@ class Config(object):
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
     BE_URL = os.getenv('BE_URL')
     BE_LOGIN_API_ADDRESS = os.getenv('BE_LOGIN_API_ADDRESS')
+    BE_SIGNUP_API_ADDRESS = os.getenv('BE_SIGNUP_API_ADDRESS')
 
     # App Config - the minimal footprint
     SECRET_KEY = os.getenv('SECRET_KEY', 'S#perS3crEt_9999')
 
 
     ####For local test
-    #BE_URL = "http://localhost:7071"
-    #BE_LOGIN_API_ADDRESS = "/authentication/login"
+    BE_URL = "http://localhost:7071"
+    BE_LOGIN_API_ADDRESS = "/authentication/login"
+    BE_SIGNUP_API_ADDRESS = "/authentication/register"

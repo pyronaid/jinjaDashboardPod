@@ -1,29 +1,86 @@
-{% extends 'layouts/base.html' %}
-{% block title %} Sign OUT {% endblock %}
-{% block sidebar %}{% endblock sidebar %}
-{% block navigation %}{% endblock navigation %}
-{% block content %}
-    <main>
-        <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include 'includes/head.html' %}
+</head>
+
+<body class="">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent mw-100">
+        <div class="container-fluid overflow-hidden">
+            <div class="navbar-wrapper">
+                <div class="navbar-toggle d-inline">
+                    <button type="button" class="navbar-toggler">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                    </button>
+                </div>
+                <a class="navbar-brand" href="/dashboard">Pyronaid Admin Dash</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+                <span class="navbar-toggler-bar navbar-kebab"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                <ul class="navbar-nav ml-auto">
+                    <li class="input-group d-flex align-items-center mb-0">
+                        <label class="switch theme-switch">
+                            <input type="checkbox" class="bsc" checked="">
+                            <span class="slider"></span>
+                        </label>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Logout</a>
+                    </li>
+
+                    <li class="separator d-lg-none"></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid">
+        <div class="content">
             <div class="container">
-                <div class="row justify-content-center form-bg-image">
-                    <div class="col-12 d-flex align-items-center justify-content-center">
-                        <div class="bg-white shadow border-0 rounded p-4 p-lg-5 w-100 fmxw-500">
-                            <div class="text-center text-md-center mb-4 mt-md-0">
-                                <h1 class="h3">Log in</h1>
-                                <p class="text-gray">Thanks for spending some quality time with the Web site today.</p>
+                <div class="row pt-5">
+                    <div class="col-md-6 mt-5 offset-md-3 pt-5 mt-5">
+                        <div class="card">
+                            <div class="card-header text-center py-4">
+                                <h4 class="title">Logout to PYRONAID ADMIN</h4>
                             </div>
-                            <div class="mt-5">
+                            <div class="card-body px-5 py-3">
+                                <p>Logout successfully completed</p>
                                 <div class="d-grid mt-3 d-flex justify-content-center">
                                     <a href="{{url_for('authentication_blueprint.accounts_signin')}}" class="btn btn-gray-800">Log in again</a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
+
                 </div>
             </div>
-        </section>
-    </main>
-{% endblock %}
-{% block footer %}{% endblock footer %}
 
+        </div>
+        <footer class="footer px-5 py-4 fixed-bottom">
+            <div class="copyright mx-auto float-none text-center">
+                ©
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+                made with <i class="tim-icons icon-heart-2"></i>
+            </div>
+        </footer>
+    </div>
+</div>
+
+{% include 'includes/fixed-plugin.html' %}
+{% include 'includes/scripts.html' %}
+</body>
+
+</html>

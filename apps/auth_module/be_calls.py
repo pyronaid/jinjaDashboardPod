@@ -7,6 +7,7 @@ from apps import Config
 import requests
 from requests import Response
 from apps.auth_module.objects.LoginDto import LoginResponseDto, LoginRequestDto
+from apps.auth_module.objects.SignupDto import SignupResponseDto, SignupRequestDto
 from apps.auth_module.objects.PyronaidEncoder import PyronaidEncoder
 
 
@@ -40,3 +41,25 @@ def process_login(username_provided: str, password_hashed_provided: str) -> Logi
         loginResponseDto.responseMsg = "Communication unavailable"
 
     return loginResponseDto
+
+
+def process_register(username_provided, password_hashed_provided, email_provided):
+    signupResponseDto = SignupResponseDto()
+    try:
+        signupRequestDto = SignupRequestDto(username_provided, password_hashed_provided, email_provided)
+        processSignupApiResponse: Response = requests.post(Config.BE_URL + Config.BE_SIGNUP_API_ADDRESS,
+                                                          data=json.dumps(signupRequestDto, cls=PyronaidEncoder), headers=computeHeader())
+
+        signupResponseDto.responseCode = processSignupApiResponse.status_code
+        if processSignupApiResponse.status_code != 200:
+            logging.error("ERROR IN SIGNUP PHASE")
+            signupResponseDto.responseMsg = "The server answer with a code different from expected one"
+        else:
+            signupResponseDto = cast(SignupResponseDto,
+                                    json.loads(str(processSignupApiResponse.text).replace("None", "null"),
+                                               object_hook=lambda d: Namespace(**d)))
+    except requests.exceptions.RequestException as e:
+        logging.error("ERROR IN SIGNUP PHASE")
+        signupResponseDto.responseMsg = "Communication unavailable"
+
+    return signupResponseDto

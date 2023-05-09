@@ -16,13 +16,13 @@
     <div class="collapse" id="pagesExamples">
       <ul class="nav">
         <li>
-          <a href="{{url_for('accounts_signin')}}">
+          <a href="{{url_for('authentication_blueprint.accounts_signin')}}">
             <span class="sidebar-mini-icon">L</span>
             <span class="sidebar-normal"> Login </span>
           </a>
         </li>
         <li>
-          <a href="{{url_for('accounts_signup')}}">
+          <a href="{{url_for('authentication_blueprint.accounts_signup')}}">
             <span class="sidebar-mini-icon">R</span>
             <span class="sidebar-normal"> Register </span>
           </a>
@@ -47,12 +47,6 @@
     <a href="{{url_for('dashboard_blueprint.pages_notifications')}}">
       <i class="tim-icons icon-bell-55"></i>
       <p>Notifications</p>
-    </a>
-  </li>
-  <li class="{% if 'user_profile' in segment %} active {% endif %}">
-    <a href="{{url_for('dashboard_blueprint.pages_user')}}">
-      <i class="tim-icons icon-single-02"></i>
-      <p>User Profile</p>
     </a>
   </li>
   <li class="{% if 'tables' in segment %} active {% endif %}">

@@ -2,6 +2,7 @@ from datetime import datetime, date
 
 
 class UserDto:
+    id: int
     username: str
     email: str
-    firstSubscriptionDate: datetime
+    firstSubscriptionDate: str
