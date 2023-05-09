@@ -30,14 +30,14 @@ def process_login(username_provided: str, password_hashed_provided: str) -> Logi
 
         loginResponseDto.responseCode = processLoginApiResponse.status_code
         if processLoginApiResponse.status_code != 200:
-            logging.error("ERROR IN LOGIN PHASE")
+            logging.error("ERROR IN LOGIN PHASE calling "+Config.BE_URL + Config.BE_LOGIN_API_ADDRESS)
             loginResponseDto.responseMsg = "The server answer with a code different from expected one"
         else:
             loginResponseDto = cast(LoginResponseDto,
                                     json.loads(str(processLoginApiResponse.text).replace("None", "null"),
                                                object_hook=lambda d: Namespace(**d)))
     except requests.exceptions.RequestException as e:
-        logging.error("ERROR IN LOGIN PHASE")
+        logging.error("ERROR IN LOGIN PHASE callings "+Config.BE_URL + Config.BE_LOGIN_API_ADDRESS)
         loginResponseDto.responseMsg = "Communication unavailable"
 
     return loginResponseDto
@@ -52,14 +52,14 @@ def process_register(username_provided, password_hashed_provided, email_provided
 
         signupResponseDto.responseCode = processSignupApiResponse.status_code
         if processSignupApiResponse.status_code != 200:
-            logging.error("ERROR IN SIGNUP PHASE")
+            logging.error("ERROR IN SIGNUP PHASE calling "+ Config.BE_URL + Config.BE_SIGNUP_API_ADDRESS)
             signupResponseDto.responseMsg = "The server answer with a code different from expected one"
         else:
             signupResponseDto = cast(SignupResponseDto,
                                     json.loads(str(processSignupApiResponse.text).replace("None", "null"),
                                                object_hook=lambda d: Namespace(**d)))
     except requests.exceptions.RequestException as e:
-        logging.error("ERROR IN SIGNUP PHASE")
+        logging.error("ERROR IN SIGNUP PHASE callings "+ Config.BE_URL + Config.BE_SIGNUP_API_ADDRESS)
         signupResponseDto.responseMsg = "Communication unavailable"
 
     return signupResponseDto

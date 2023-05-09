@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: jinja
-        image: pyronaid/jinja_dashboard_app:0.0.2
+        image: pyronaid/jinja_dashboard_app:0.0.9
         ports:
         - containerPort: 5001
         env:
@@ -25,6 +25,16 @@ spec:
               configMapKeyRef:
                 name: jinja-config
                 key: BE_URL
+          - name: BE_LOGIN_API_ADDRESS
+            valueFrom:
+              configMapKeyRef:
+                name: jinja-config
+                key: BE_LOGIN_API_ADDRESS
+          - name: BE_SIGNUP_API_ADDRESS
+            valueFrom:
+              configMapKeyRef:
+                name: jinja-config
+                key: BE_SIGNUP_API_ADDRESS
 ---
 apiVersion: v1
 kind: Service

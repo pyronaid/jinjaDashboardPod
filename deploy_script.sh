@@ -12,10 +12,10 @@ fi
 
 ### build the docker images on minikube
 versionApp=$(cat version.txt)
-docker build -t pyronaid/jinja_dashboard_app:${versionApp} --rm=true .
+docker build --no-cache -t pyronaid/jinja_dashboard_app:${versionApp} --force-rm --no-cache .
 cat password.txt | docker login --username pyronaid --password-stdin
 docker push pyronaid/jinja_dashboard_app:${versionApp}
-docker rmi pyronaid/jinja_dashboard_app:${versionApp}
+docker rmi --force pyronaid/jinja_dashboard_app:${versionApp}
 
 cat gunicorn-cfg.py
 
