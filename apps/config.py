@@ -22,6 +22,6 @@ class Config(object):
 
 
     ####For local test
-    BE_URL = "http://localhost:7071"
-    BE_LOGIN_API_ADDRESS = "/authentication/login"
-    BE_SIGNUP_API_ADDRESS = "/authentication/register"
+    #BE_URL = "http://localhost:7071"
+    #BE_LOGIN_API_ADDRESS = "/authentication/login"
+    #BE_SIGNUP_API_ADDRESS = "/authentication/register"
