@@ -67,7 +67,7 @@
                                                 </label>
                                                 {{ form.username(placeholder="Username", class="form-control") }}
                                                 {% if error_username %}
-                                                {{error_username}}
+                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_username}}</span><div>
                                                 {% endif %}
                                             </div>
                                             <span class="form_error"></span>
@@ -77,7 +77,7 @@
                                                 </label>
                                                 {{ form.password(placeholder="Password", class="form-control", type="password") }}
                                                 {% if error_password %}
-                                                {{error_password}}
+                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_password}}</span><div>
                                                 {% endif %}
                                             </div>
                                             <span class="form_error"></span>
