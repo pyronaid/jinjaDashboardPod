@@ -13,7 +13,7 @@ class Config(object):
 
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
-    BE_URL = os.getenv('BE_URL')
+    BE_URL = os.getenv('BE_URL') + "default.svc.cluster.local"
     BE_LOGIN_API_ADDRESS = os.getenv('BE_LOGIN_API_ADDRESS')
     BE_SIGNUP_API_ADDRESS = os.getenv('BE_SIGNUP_API_ADDRESS')
 
@@ -22,6 +22,6 @@ class Config(object):
 
 
     ####For local test
-    #BE_URL = "http://localhost:7071"
+    #BE_URL = "http://springboot-service-extdefault.svc.cluster.local:30072"
     #BE_LOGIN_API_ADDRESS = "/authentication/login"
     #BE_SIGNUP_API_ADDRESS = "/authentication/register"

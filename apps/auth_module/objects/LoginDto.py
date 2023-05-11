@@ -8,8 +8,9 @@ class LoginRequestDto:
 
 
 class LoginResponseDto:
-    errorMsgUsername: str
-    errorMsgPassword: str
-    responseCode: int
-    responseMsg: str
-    userObj: UserDto
+    def __init__(self):
+        self.errorMsgUsername: str = None
+        self.errorMsgPassword: str = None
+        self.responseCode: int = None
+        self.responseMsg: str = None
+        self.userObj: UserDto = None

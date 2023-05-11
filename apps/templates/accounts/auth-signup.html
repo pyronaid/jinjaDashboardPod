@@ -65,30 +65,40 @@
                                                      Username :
                                                 </label>
                                                 {{ form.username(placeholder="Username", class="form-control") }}
+                                            </div>
+                                            <div class="form_error">
                                                 {% if error_username %}
-                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_username}}</span><div>
+                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_username}}</span></div>
                                                 {% endif %}
                                             </div>
-                                            <span class="form_error"></span>
                                             <div class="form-group">
                                                 <label>Email</label>
                                                 {{ form.email(placeholder="Email", class="form-control") }}
+                                            </div>
+                                            <div class="form_error">
                                                 {% if error_mail %}
-                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_mail}}</span><div>
+                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_mail}}</span></div>
                                                 {% endif %}
                                             </div>
                                             <div class="form-group">
                                                 <label>Password</label>
                                                 {{ form.password(placeholder="Password", class="form-control", type="password") }}
+                                            </div>
+                                            <div class="form_error">
                                                 {% if error_password %}
-                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_password}}</span><div>
+                                                <div class="alert alert-danger"><span><b> Warning - </b>{{error_password}}</span></div>
                                                 {% endif %}
                                             </div>
                                             <div class="form-group">
+                                                <div class="form_error">
+                                                    {% if error_generic %}
+                                                    <div class="alert alert-danger"><span><b> Warning - </b>{{error_generic}}</span></div>
+                                                    {% endif %}
+                                                </div>
                                                 <button type="submit" class="btn btn-fill btn-primary">Register</button>
-                                                        <span style="margin: 12px !important;">
-                                                            Or <a href="{{url_for('authentication_blueprint.accounts_signin')}}">Sign in</a>
-                                                        </span>
+                                                <span style="margin: 12px !important;">
+                                                    Or <a href="{{url_for('authentication_blueprint.accounts_signin')}}">Sign in</a>
+                                                </span>
                                             </div>   
                                         </div>
                                                                            

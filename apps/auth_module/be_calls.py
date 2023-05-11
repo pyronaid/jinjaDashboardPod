@@ -60,6 +60,7 @@ def process_register(username_provided, password_hashed_provided, email_provided
                                                object_hook=lambda d: Namespace(**d)))
     except requests.exceptions.RequestException as e:
         logging.error("ERROR IN SIGNUP PHASE callings "+ Config.BE_URL + Config.BE_SIGNUP_API_ADDRESS)
+        signupResponseDto.responseCode = 999
         signupResponseDto.responseMsg = "Communication unavailable"
 
     return signupResponseDto

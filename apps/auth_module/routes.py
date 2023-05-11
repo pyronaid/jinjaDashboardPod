@@ -31,6 +31,7 @@ def accounts_signin():
         login_form = LoginForm(request.form)
         error_username: str = None
         error_password: str = None
+        error_generic: str = None
         if login_form.validate_on_submit():
             # read form data
             username = request.form['username']
@@ -40,6 +41,8 @@ def accounts_signin():
             if loginResponseDto is not None:
                 error_username = loginResponseDto.errorMsgUsername
                 error_password = loginResponseDto.errorMsgPassword
+                if loginResponseDto.responseCode is not None and loginResponseDto.responseCode != 200:
+                    error_generic = loginResponseDto.responseMsg
             user: User = convertResponseToUser(loginResponseDto)
             if user and verify_user(password):
                 # Login and validate the user.
@@ -55,7 +58,7 @@ def accounts_signin():
                     return abort(400)
                 return redirect(next or url_for('dashboard_blueprint.index'))
         return render_template('accounts/auth-signin.html', segment='signin', parent='accounts', form=login_form,
-                               error_username=error_username, error_password=error_password)
+                               error_username=error_username, error_password=error_password, error_generic=error_generic)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
@@ -73,6 +76,7 @@ def accounts_signup():
         error_username: str = None
         error_password: str = None
         error_mail: str = None
+        error_generic: str = None
         if create_account_form.validate_on_submit():
             # read form data
             username = request.form['username']
@@ -84,6 +88,8 @@ def accounts_signup():
                 error_username = signupResponseDto.errorMsgUsername
                 error_password = signupResponseDto.errorMsgPassword
                 error_mail = signupResponseDto.errorMsgMail
+                if signupResponseDto.responseCode is not None and signupResponseDto.responseCode != 200:
+                    error_generic = signupResponseDto.responseMsg
             user: User = convertResponseToUser(signupResponseDto)
             if user and verify_user(password):
                 # Login and validate the user.
@@ -93,7 +99,8 @@ def accounts_signup():
                 flash('Logged in successfully.')
                 return redirect(next or url_for('dashboard_blueprint.index'))
         return render_template('accounts/auth-signup.html', segment='signup', parent='accounts',
-                               form=create_account_form, error_username=error_username, error_password=error_password, error_mail=error_mail)
+                               form=create_account_form, error_username=error_username, error_password=error_password,
+                               error_mail=error_mail, error_generic=error_generic)
 
 
 # Accounts
