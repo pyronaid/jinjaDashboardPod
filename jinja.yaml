@@ -16,24 +16,29 @@ spec:
     spec:
       containers:
       - name: jinja
-        image: pyronaid/jinja_dashboard_app
+        image: pyronaid/jinja_dashboard_app:#VERSIONAPP#
         ports:
         - containerPort: 5001
         env:
           - name: BE_URL
             valueFrom:
               configMapKeyRef:
-                name: jinja-config
+                name: springboot-config
                 key: BE_URL
+          - name: BE_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: springboot-config
+                key: BE_PORT
           - name: BE_LOGIN_API_ADDRESS
             valueFrom:
               configMapKeyRef:
-                name: jinja-config
+                name: springboot-config
                 key: BE_LOGIN_API_ADDRESS
           - name: BE_SIGNUP_API_ADDRESS
             valueFrom:
               configMapKeyRef:
-                name: jinja-config
+                name: springboot-config
                 key: BE_SIGNUP_API_ADDRESS
 ---
 apiVersion: v1

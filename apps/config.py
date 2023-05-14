@@ -13,7 +13,7 @@ class Config(object):
 
     # Assets Management
     ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets')
-    BE_URL = "http://"+os.getenv('BE_URL')+":"+os.getenv('BE_PORT')
+    BE_URL = "http://"+os.getenv('BE_URL')+":"+str(os.getenv('BE_PORT'))
     BE_LOGIN_API_ADDRESS = os.getenv('BE_LOGIN_API_ADDRESS')
     BE_SIGNUP_API_ADDRESS = os.getenv('BE_SIGNUP_API_ADDRESS')
 

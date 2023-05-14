@@ -24,18 +24,22 @@ docker rmi --force pyronaid/jinja_dashboard_app:${versionApp}
 cat gunicorn-cfg.py
 
 # kustomization command
-kustomize edit set image pyronaid/jinja_dashboard_app:${versionApp}
+sed "s/#VERSIONAPP#/${versionApp}/g" jinja.yaml > jinja-toexecute.yaml
 
 #refresh installation
-echo "command delete -f jinja.yaml"
-kubectl delete -f jinja.yaml
+echo "command delete -f jinja-toexecute.yaml"
+kubectl delete -f jinja-toexecute.yaml
 echo "###############################################"
 echo "###############################################"
-echo "command apply -f kustomization.yaml"
-kubectl apply -f kustomization.yaml
+echo "command delete -f jinja-ingress.yaml"
+kubectl delete -f jinja-ingress.yaml
 echo "###############################################"
 echo "###############################################"
-echo "command apply -f jinja.yaml"
-kubectl apply -f jinja.yaml
+echo "command apply -f jinja-toexecute.yaml"
+kubectl apply -f jinja-toexecute.yaml
+echo "###############################################"
+echo "###############################################"
+echo "command apply -f jinja-ingress.yaml"
+kubectl apply -f jinja-ingress.yaml
 echo "###############################################"
 echo "###############################################"
