@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: jinja
-        image: pyronaid/jinja_dashboard_app:0.0.9
+        image: pyronaid/jinja_dashboard_app
         ports:
         - containerPort: 5001
         env:
@@ -41,7 +41,7 @@ kind: Service
 metadata:
   name: jinja-service-ext
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: jinja_app
   ports:
